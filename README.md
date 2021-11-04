@@ -1,7 +1,5 @@
 # take-blip-challenge
 
-(https://avatars.githubusercontent.com/u/4369522?s=200&v=4)
-
 # API em Node.js e Express.js - API simples de consulta dos reposítórios da take blip no GitHub
 
 Nesta API tenho um método básico de GET para os 5 repositórios de linguagem C# mais antigos da Take retornando um JSON nos moldes da api da própria Take,
@@ -31,4 +29,4 @@ ordenados de forma crescente por data de criação que será capaz de gerar um c
 
 ## Testes
 
-Foi criada uma requisição no Postman para o teste da API.
+Foi criada uma requisição no Postman para o teste da API utilizando a url hospedada no Heroku https://take-blip-challenge-api.herokuapp.com/repos.
