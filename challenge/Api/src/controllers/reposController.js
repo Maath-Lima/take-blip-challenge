@@ -8,25 +8,29 @@ exports.get = (req, res, next) => {
   axios.get(`${url}${query_string}${per_page_param}`)
   .then((api_res) => {
     const { items: repos } = api_res.data;
-    let avatar_url = '';
 
     const repos_sorted = repos.sort((current_item, next_item) => new Date(current_item.created_at) - new Date(next_item.created_at))
                               .splice(0, 5)
                               .map((repo, index) => {
-                                const {full_name: repo_name, description: repo_description} = repo;
-
-                                if (index === 0) avatar_url = repo.owner.avatar_url;
+                                const { full_name: repo_name, description: repo_description, owner: { avatar_url } } = repo;
 
                                 return {
-                                  repo_name,
-                                  repo_description
+                                  header: {
+                                    type: 'application/vnd.lime.media-link+json',
+                                    value: {
+                                        title: repo_name,
+                                        text: repo_description,
+                                        type: "image/png",
+                                        uri: avatar_url
+                                    }
+                                  }
                                 }
                               });
                  
     res.status(200).send(
       {
-        avatar: avatar_url,
-        repositorios: repos_sorted
+        itemType: 'application/vnd.lime.document-select+json',
+        items: repos_sorted
       }
     );
   })
